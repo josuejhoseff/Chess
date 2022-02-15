@@ -10,7 +10,7 @@ public class ChessMath {
 
 	private Board board;
 
-	public ChessMath() throws BoardException {
+	public ChessMath() throws BoardException, ChessException {
 		board = new Board(8, 8);
 		initialSetup();
 	}
@@ -26,10 +26,13 @@ public class ChessMath {
 		return mat;
 
 	}
+	private void PlaceNewPiece(char column, int row, ChessPiece piece) throws BoardException, ChessException {
+		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+	}
 	
-	public void initialSetup() throws BoardException {
-		board.placePiece(new Rook(board, Color.WHITE), new Position(5, 1));
-		board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
-		board.placePiece(new King(board, Color.WHITE), new Position(7, 4));
+	public void initialSetup() throws BoardException, ChessException {
+		PlaceNewPiece('b', 6 , new Rook(board, Color.WHITE));
+		PlaceNewPiece('a', 4, new King(board, Color.BLACK));
+		PlaceNewPiece('d', 4, new King(board, Color.WHITE));
 	}
 }
